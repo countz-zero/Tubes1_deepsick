@@ -1,0 +1,11 @@
+{
+    "name": "deepsick",
+    "version": "1.0",
+    "authors": [ "Ilman", "Rendi"],
+    "description": "Mencoba membuat robot",
+    "homepage": "hawk.tuah",
+    "countryCodes": [ "id" ],
+    "platform": ".Net",
+    "programmingLang": "C#"
+  }
+  
