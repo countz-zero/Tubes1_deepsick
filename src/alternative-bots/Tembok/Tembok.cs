@@ -1,7 +1,7 @@
 using System.Drawing;
 using Robocode.TankRoyale.BotApi;
 using Robocode.TankRoyale.BotApi.Events;
-
+using System;
 public class Tembok : Bot
 {
     // The main method starts our bot
@@ -24,14 +24,20 @@ public class Tembok : Bot
         ScanColor = Color.FromArgb(0xFF, 0xFF, 0x00);   // Bright Yellow 
         TracksColor = Color.FromArgb(0x99, 0x33, 0x00); // Dark Brownish-Orange
         GunColor = Color.FromArgb(0xCC, 0x55, 0x00);    // Medium Orange
-      
+
+        if (Direction <= 180 ) {
+            TurnRight(Direction);
+        } else {
+            TurnLeft(360 - Direction);
+        }
+
+        Forward(ArenaWidth-X);
         // Repeat while the bot is running
         while (IsRunning)
         {
             Forward(100);
-            TurnGunRight(360);
+            TurnRadarLeft(-90);
             Back(100);
-            TurnGunRight(360);
         }
     }
 

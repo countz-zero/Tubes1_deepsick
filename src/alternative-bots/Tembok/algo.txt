@@ -1,0 +1,9 @@
+v0.0.0
+
+Tembok : 
+
+Bot mendekati tembok, berusaha menghindari bot lawan (Survival First)
+
+Menembak tank yang dilihat selama keliling, menghantam jika dekat. 
+
+Survive - Shoot - Ram

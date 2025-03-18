@@ -1,0 +1,9 @@
+v.0.0.0
+Wintermute : 
+
+Menembak jika jauh, menghantam jika dekat tanpa peduli keamanan. (Shoot First)
+
+Memprioritaskan poin daripada keselamatan.
+
+Baru kabur jika nyawa terancam, lalu mencoba menembak lagi dari jauh (tidak menghantam 
+sampai nyawa cukup besar lagi)
