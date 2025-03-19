@@ -25,19 +25,35 @@ public class Tembok : Bot
         TracksColor = Color.FromArgb(0x99, 0x33, 0x00); // Dark Brownish-Orange
         GunColor = Color.FromArgb(0xCC, 0x55, 0x00);    // Medium Orange
 
+        //Hadap 0 Derajat 
         if (Direction <= 180 ) {
             TurnRight(Direction);
         } else {
             TurnLeft(360 - Direction);
         }
 
-        Forward(ArenaWidth-X);
+        double WALL_MARGIN = 20;
+
+        //Maju sampai tembok
+        Forward(ArenaWidth - X - WALL_MARGIN);
+
+        //Turn Gun
+        TurnGunLeft(90);
+
+        TurnLeft(90);
+        Forward(ArenaHeight - Y - WALL_MARGIN);
+
         // Repeat while the bot is running
         while (IsRunning)
         {
-            Forward(100);
-            TurnRadarLeft(-90);
-            Back(100);
+            TurnLeft(90);
+            Forward((ArenaWidth - WALL_MARGIN));
+            TurnLeft(90);
+            Forward((ArenaHeight - WALL_MARGIN));
+            TurnLeft(90);
+            Forward((ArenaWidth - WALL_MARGIN));
+            TurnLeft(90);
+            Forward((ArenaHeight - WALL_MARGIN));
         }
     }
 
