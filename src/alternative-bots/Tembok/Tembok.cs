@@ -4,6 +4,7 @@ using Robocode.TankRoyale.BotApi.Events;
 using System;
 public class Tembok : Bot
 {
+    bool peek = false;
     // The main method starts our bot
     static void Main(string[] args)
     {
@@ -47,29 +48,50 @@ public class Tembok : Bot
         while (IsRunning)
         {
             TurnLeft(90);
+            peek = true;
             Forward((ArenaWidth - WALL_MARGIN));
+            peek = false;
             TurnLeft(90);
+            peek = true;
             Forward((ArenaHeight - WALL_MARGIN));
+            peek = false;
             TurnLeft(90);
+            peek = true;
             Forward((ArenaWidth - WALL_MARGIN));
+            peek = false;
             TurnLeft(90);
+            peek = true;
             Forward((ArenaHeight - WALL_MARGIN));
+            peek = false;
         }
     }
 
     // We saw another bot -> fire!
     public override void OnScannedBot(ScannedBotEvent evt)
     {
-        Fire(1);
+        Fire(2);
+        if (peek) {
+            Rescan();
+        }
     }
 
     // We were hit by a bullet -> turn perpendicular to the bullet
-    public override void OnHitByBullet(HitByBulletEvent evt)
-    {
-        // Calculate the bearing to the direction of the bullet
-        var bearing = CalcBearing(evt.Bullet.Direction);
+    // public override void OnHitByBullet(HitByBulletEvent evt)
+    // {
+    //     // Calculate the bearing to the direction of the bullet
+    //     var bearing = CalcBearing(evt.Bullet.Direction);
 
-        // Turn 90 degrees to the bullet direction based on the bearing
-        TurnLeft(90 - bearing);
+    //     // Turn 90 degrees to the bullet direction based on the bearing
+    //     TurnLeft(90 - bearing);
+    // }
+
+    public override void OnHitBot(HitBotEvent e) {
+        double bearing = BearingTo(e.X, e.Y);
+        if (bearing > -90 && bearing < 90) {
+			Back(100);
+		} // else he's in back of us, so set ahead a bit.
+		else {
+			Forward(100);
+		}
     }
 }

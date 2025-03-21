@@ -6,8 +6,6 @@ using System;
 public class Wintermute : Bot
 {
     int count = 0;
-    double gunTurnAmt;
-    int trackedId;
     // The main method starts our bot
     static void Main(string[] args)
     {
@@ -29,85 +27,46 @@ public class Wintermute : Bot
         TracksColor = Color.FromArgb(0x99, 0x33, 0x00); // Dark Brownish-Orange
         GunColor = Color.FromArgb(0xCC, 0x55, 0x00);    // Medium Orange
 
-        double initAngle = BearingTo(ArenaWidth, ArenaHeight);
-        Console.WriteLine(initAngle);
-
-        TurnRadarRight(360);
-        Forward(100);
-        TurnRadarRight(360);
-        Back(100);
-
-        trackedId = -1;
-        AdjustGunForBodyTurn = true;
-        gunTurnAmt = 10;
-        count = 0;
-
+        
+        double directionToCenter = DirectionTo(ArenaWidth/2, ArenaHeight/2);
+        double rotAtm = CalcDeltaAngle(directionToCenter, Direction);
+        TurnLeft(rotAtm);
         // Repeat while the bot is running
         while (IsRunning)
         {
-            TurnGunRight(gunTurnAmt);
-			// Keep track of how long we've been looking
-			count++;
-			// If we've haven't seen our target for 2 turns, look left
-			if (count > 2) {
-				gunTurnAmt = -10;
-			}
-			// If we still haven't seen our target for 5 turns, look right
-			if (count > 5) {
-				gunTurnAmt = 10;
-			}
-			// If we still haven't seen our target after 10 turns, find another target
-			if (count > 11) {
-				trackedId = -1;
-			}
+            if(Direction != DirectionTo(ArenaWidth/2, ArenaHeight/2)) {
+                rotAtm = CalcDeltaAngle(directionToCenter, Direction);
+                TurnLeft(rotAtm);
+            }
+
+            if (count > 5) {
+                TurnLeft(180);
+                count = 0;
+            }
+            TurnRadarLeft(90);
+            TurnRadarRight(180);
+            TurnRadarLeft(90);
+            count++;
         }
     }
+
 
     // We saw another bot -> fire!
     public override void OnScannedBot(ScannedBotEvent evt)
     {
-        
-		// If we have a target, and this isn't it, return immediately
-		// so we can get more ScannedRobotEvents.
-		if (trackedId != -1 && !(evt.ScannedBotId == trackedId)) {
-			return;
-		}
+        double trackedDir;
+        double rotAtm;
+        if(DistanceTo(evt.X, evt.Y) > 300) {
+            trackedDir = DirectionTo(evt.X, evt.Y);
 
-		// If we don't have a target, well, now we do!
-		if (trackedId == -1) {
-			trackedId = evt.ScannedBotId;
-			Console.WriteLine("Tracking " + trackedId);
-		}
-		// This is our target.  Reset count (see the run method)
-		count = 0;
-		// If our target is too far away, turn and move toward it.
-		if (DistanceTo(evt.X, evt.Y) > 150) {
-			gunTurnAmt = NormalizeRelativeAngle(BearingTo(evt.X, evt.Y) + (Direction - RadarDirection));
-
-			TurnGunRight(gunTurnAmt); // Try changing these to setTurnGunRight,
-			TurnRight(BearingTo(evt.X, evt.Y)); // and see how much Tracker improves...
-			// (you'll have to make Tracker an AdvancedRobot)
-			Forward(DistanceTo(evt.X, evt.Y) - 140);
-			return;
-		}
-
-		// Our target is close.
-		gunTurnAmt = NormalizeRelativeAngle(BearingTo(evt.X, evt.Y) + (Direction - RadarDirection));
-		TurnGunRight(gunTurnAmt);
-		Fire(3);
-
-		// Our target is too close!  Back up.
-		if (DistanceTo(evt.X, evt.Y) < 100) {
-			if (BearingTo(evt.X, evt.Y) > -90 && BearingTo(evt.X, evt.Y) <= 90) {
-				Back(40);
-			} else {
-				Forward(40);
-			}
-		}
-		Rescan();
+            rotAtm = CalcDeltaAngle(Direction, trackedDir);
+            TurnLeft(rotAtm);
+            Forward(100);
+            Fire(1);
+        }
     }
 
-    // We were hit by a bullet -> turn perpendicular to the bullet
+    //We were hit by a bullet -> turn perpendicular to the bullet
     public override void OnHitByBullet(HitByBulletEvent evt)
     {
         // Calculate the bearing to the direction of the bullet
@@ -115,5 +74,23 @@ public class Wintermute : Bot
 
         // Turn 90 degrees to the bullet direction based on the bearing
         TurnLeft(90 - bearing);
+    }
+
+    public void onHitBot(HitBotEvent e) {
+		// Only print if he's not already our target.
+		// Set the target
+		int trackName = e.VictimId;
+		// Back up a bit.
+		// Note:  We won't get scan events while we're doing this!
+		// An AdvancedRobot might use setBack(); execute();
+		gunTurnAmt = NormalizeRelativeAngle(BearingTo(e.X, e.Y) + Direction - RadarDirection);
+		TurnGunRight(gunTurnAmt);
+		Fire(3);
+		Back(50);
+	}
+
+    public void OnHitWall(HitWallEvent evt) {
+        TurnRight(180);
+        Back(500);
     }
 }
