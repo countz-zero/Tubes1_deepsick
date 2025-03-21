@@ -4,6 +4,6 @@ Tembok :
 
 Bot mendekati tembok, berusaha menghindari bot lawan (Survival First)
 
-Menembak tank yang dilihat selama keliling, menghantam jika dekat. 
+Menembak tank yang dilihat selama keliling dan yang menghalangi jalan, menghantam jika dekat. 
 
 Survive - Shoot - Ram
