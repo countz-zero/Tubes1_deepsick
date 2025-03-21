@@ -5,6 +5,9 @@ using System;
 
 public class Wintermute : Bot
 {
+    int count = 0;
+    double gunTurnAmt;
+    int trackedId;
     // The main method starts our bot
     static void Main(string[] args)
     {
@@ -34,9 +37,11 @@ public class Wintermute : Bot
         TurnRadarRight(360);
         Back(100);
 
-        double gunTurnAmt = 10;
-        int count = 0;
-        int trackedId;
+        trackedId = -1;
+        AdjustGunForBodyTurn = true;
+        gunTurnAmt = 10;
+        count = 0;
+
         // Repeat while the bot is running
         while (IsRunning)
         {
@@ -53,7 +58,7 @@ public class Wintermute : Bot
 			}
 			// If we still haven't seen our target after 10 turns, find another target
 			if (count > 11) {
-				trackName = null;
+				trackedId = -1;
 			}
         }
     }
@@ -64,20 +69,20 @@ public class Wintermute : Bot
         
 		// If we have a target, and this isn't it, return immediately
 		// so we can get more ScannedRobotEvents.
-		if (trackName != null && !evt.ScannedBotId.equals(trackName)) {
+		if (trackedId != -1 && !(evt.ScannedBotId == trackedId)) {
 			return;
 		}
 
 		// If we don't have a target, well, now we do!
-		if (trackName == null) {
-			trackName = evt.ScannedBotId();
-			Console.WriteLine("Tracking " + trackName);
+		if (trackedId == -1) {
+			trackedId = evt.ScannedBotId;
+			Console.WriteLine("Tracking " + trackedId);
 		}
 		// This is our target.  Reset count (see the run method)
 		count = 0;
 		// If our target is too far away, turn and move toward it.
 		if (DistanceTo(evt.X, evt.Y) > 150) {
-			gunTurnAmt = NormalizedRelativeAngle(BearingTo(evt.X, evt.Y) + (Direction - RadarDirection));
+			gunTurnAmt = NormalizeRelativeAngle(BearingTo(evt.X, evt.Y) + (Direction - RadarDirection));
 
 			TurnGunRight(gunTurnAmt); // Try changing these to setTurnGunRight,
 			TurnRight(BearingTo(evt.X, evt.Y)); // and see how much Tracker improves...
