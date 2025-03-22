@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Wintermute")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+8a4c11c4716c2c099b6bea4bebce1301fc0834d2")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+5c671151c7ae7657fb9aa326d9cc1aa016dad26f")]
 [assembly: System.Reflection.AssemblyProductAttribute("Wintermute")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Wintermute")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

@@ -1,8 +1,8 @@
 {
     "name": "Tembok",
-    "version": "1.0",
+    "version": "1.1",
     "authors": [ "Ilman", "Rendi"],
-    "description": "Robot selalu tetap berada di tembok selama dia bisa",
+    "description": "Robot selalu tetap berada di tembok selama dia bisa, menghindari konflik",
     "homepage": "hawk.tuah",
     "countryCodes": [ "id" ],
     "platform": ".Net",

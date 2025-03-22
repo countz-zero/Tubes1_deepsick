@@ -5,6 +5,7 @@ using System;
 public class Tembok : Bot
 {
     bool peek = false;
+    //Bool untuk kepastian apakah boleh berhenti untuk menembak
     // The main method starts our bot
     static void Main(string[] args)
     {
@@ -26,43 +27,44 @@ public class Tembok : Bot
         TracksColor = Color.FromArgb(0x99, 0x33, 0x00); // Dark Brownish-Orange
         GunColor = Color.FromArgb(0xCC, 0x55, 0x00);    // Medium Orange
 
-        //Hadap 0 Derajat 
+        //Hadapi 0 Derajat
         if (Direction <= 180 ) {
             TurnRight(Direction);
         } else {
             TurnLeft(360 - Direction);
         }
 
-        double WALL_MARGIN = 20;
+        //Jarak jaga agar tidak menabrak tembok
+        double WALL_MARGIN = 30;
 
-        //Maju sampai tembok
+        //Maju sampai tembok, nemun beri sedikit jarak agak tidak terhitung menabrak
         Forward(ArenaWidth - X - WALL_MARGIN);
 
-        //Turn Gun
+        //Putar senapan agar menghadapi arena
         TurnGunLeft(90);
 
         TurnLeft(90);
         Forward(ArenaHeight - Y - WALL_MARGIN);
-
         // Repeat while the bot is running
         while (IsRunning)
         {
-            TurnLeft(90);
-            peek = true;
-            Forward((ArenaWidth - WALL_MARGIN));
+            //Ulangi putar-putar arena
             peek = false;
             TurnLeft(90);
             peek = true;
-            Forward((ArenaHeight - WALL_MARGIN));
+            Forward((ArenaWidth - 2*WALL_MARGIN));
             peek = false;
             TurnLeft(90);
             peek = true;
-            Forward((ArenaWidth - WALL_MARGIN));
+            Forward((ArenaHeight - 2*WALL_MARGIN));
             peek = false;
             TurnLeft(90);
             peek = true;
-            Forward((ArenaHeight - WALL_MARGIN));
+            Forward((ArenaWidth - 2*WALL_MARGIN));
             peek = false;
+            TurnLeft(90);
+            peek = true;
+            Forward((ArenaHeight - 2*WALL_MARGIN));
         }
     }
 
@@ -75,21 +77,13 @@ public class Tembok : Bot
         }
     }
 
-    // We were hit by a bullet -> turn perpendicular to the bullet
-    // public override void OnHitByBullet(HitByBulletEvent evt)
-    // {
-    //     // Calculate the bearing to the direction of the bullet
-    //     var bearing = CalcBearing(evt.Bullet.Direction);
-
-    //     // Turn 90 degrees to the bullet direction based on the bearing
-    //     TurnLeft(90 - bearing);
-    // }
 
     public override void OnHitBot(HitBotEvent e) {
         double bearing = BearingTo(e.X, e.Y);
+        //Jika di depan kita, mundur sedikit.
         if (bearing > -90 && bearing < 90) {
 			Back(100);
-		} // else he's in back of us, so set ahead a bit.
+		} // Jika di belakang, maju sedikit
 		else {
 			Forward(100);
 		}
