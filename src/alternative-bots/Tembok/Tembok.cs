@@ -73,8 +73,12 @@ public class Tembok : Bot
     {
         Fire(2);
         if (peek) {
+            SetStop();
+            SetStop();
             Rescan();
         }
+
+        SetResume();
     }
 
 
