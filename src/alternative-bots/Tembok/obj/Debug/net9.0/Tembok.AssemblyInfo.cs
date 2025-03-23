@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Tembok")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+55a75e7c64fac7c34329a85b7b13eb839dfdd12f")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+272d0f45d37629cef55f808886a0a18b302850a4")]
 [assembly: System.Reflection.AssemblyProductAttribute("Tembok")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Tembok")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

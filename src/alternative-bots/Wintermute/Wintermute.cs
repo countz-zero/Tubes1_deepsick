@@ -28,20 +28,23 @@ public class Wintermute : Bot
         TracksColor = Color.FromArgb(0x99, 0x33, 0x00); // Dark Brownish-Orange
         GunColor = Color.FromArgb(0xCC, 0x55, 0x00);    // Medium Orange
 
-        
+        //Arahkan bot ke tengah arena
         double directionToCenter = DirectionTo(ArenaWidth/2, ArenaHeight/2);
         double rotAtm = CalcDeltaAngle(directionToCenter, Direction);
         TurnLeft(rotAtm);
-        // Repeat while the bot is running
+        
         while (IsRunning)
         {
+            //Besar simpangan radar
             gunTurnAmt = 60;
 
-            if (count > 2) {
+            //Apabila setelah 2 observasi, tidak ada bot, putar bot 120 derajat
+            if (count > 1) {
                 TurnLeft(120);
                 count = 0;
             }
 
+            //Pada satu observasi, bot melihat 120 derajat didepannya
             TurnRadarLeft(gunTurnAmt);
             TurnRadarRight(gunTurnAmt*2);
             TurnRadarLeft(gunTurnAmt);
@@ -51,9 +54,9 @@ public class Wintermute : Bot
 
     public override void OnScannedBot(ScannedBotEvent evt)
     {
-        bool killed = false;
         double trackedDir;
         double rotAtm;
+        //Jika bot lain jauh, dekati dan tembak 
         if(DistanceTo(evt.X, evt.Y) > 100) {
             trackedDir = DirectionTo(evt.X, evt.Y);
 
@@ -64,6 +67,7 @@ public class Wintermute : Bot
         }
 
         else {
+            //Apabila sangat dekat tembak berkali-kali, dan tembak dengan damage lebih besar
             Back(50);
             trackedDir = DirectionTo(evt.X, evt.Y);
 
@@ -77,14 +81,16 @@ public class Wintermute : Bot
         }
     }
 
-    //We were hit by a bullet -> turn perpendicular to the bullet
+
     public override void OnHitByBullet(HitByBulletEvent evt)
     {
+        //Apabila ditembak, minggir dengan cara mundur sambil belok
         SetTurnLeft(90);
         Back(100);
     }
 
     public void onHitBot(HitBotEvent e) {
+        //Apabila ditabrak, arahkan ke bot yang menabrak dan tembak langsung
 		double collisionDir;
         double turnAmt;
         collisionDir = DirectionTo(e.X, e.Y);
@@ -95,7 +101,8 @@ public class Wintermute : Bot
 	}
 
     public void OnHitWall(HitWallEvent evt) {
+        //Apabila menabrak tembok, putar balik lalu maju sedikit
         TurnRight(180);
-        Back(500);
+        Forward(300);
     }
 }
