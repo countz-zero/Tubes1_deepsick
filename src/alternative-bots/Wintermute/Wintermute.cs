@@ -35,16 +35,16 @@ public class Wintermute : Bot
         // Repeat while the bot is running
         while (IsRunning)
         {
-            
+            gunTurnAmt = 60;
 
-            if (count > 5) {
-                TurnLeft(10);
+            if (count > 2) {
+                TurnLeft(120);
                 count = 0;
             }
 
-            TurnRadarLeft(20);
-            TurnRadarRight(40);
-            TurnRadarLeft(20);
+            TurnRadarLeft(gunTurnAmt);
+            TurnRadarRight(gunTurnAmt*2);
+            TurnRadarLeft(gunTurnAmt);
             count++;
         }
     }
@@ -53,6 +53,7 @@ public class Wintermute : Bot
     // We saw another bot -> fire!
     public override void OnScannedBot(ScannedBotEvent evt)
     {
+        bool killed = false;
         double trackedDir;
         double rotAtm;
         if(DistanceTo(evt.X, evt.Y) > 100) {
@@ -61,18 +62,29 @@ public class Wintermute : Bot
             rotAtm = CalcDeltaAngle(trackedDir, Direction);
             TurnLeft(rotAtm);
             Forward(100);
-            Fire(1);
+            Fire(2);
         }
 
         else {
+            Back(50);
             trackedDir = DirectionTo(evt.X, evt.Y);
 
             rotAtm = CalcDeltaAngle(trackedDir, Direction);
             TurnLeft(rotAtm);
-            while(evt.Energy > 0) {
+            int timesFire = (int)evt.Energy / 3;
+            while(timesFire > 0) {
                 Fire(3);
+                timesFire--;
             }
+
+            killed = true;
         }
+
+        if(killed) {
+            Fire(3);
+            TurnLeft(180);
+        }
+
     }
 
     //We were hit by a bullet -> turn perpendicular to the bullet
