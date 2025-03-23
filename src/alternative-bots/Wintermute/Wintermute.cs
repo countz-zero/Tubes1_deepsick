@@ -60,7 +60,7 @@ public class Wintermute : Bot
             rotAtm = CalcDeltaAngle(trackedDir, Direction);
             TurnLeft(rotAtm);
             Forward(100);
-            Fire(1.5);
+            Fire(2);
         }
 
         else {
