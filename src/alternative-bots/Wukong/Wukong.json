@@ -1,11 +1,11 @@
 {
-  "name": "RandomBot",
+  "name": "Wukong",
   "version": "1.0",
   "authors": [
-    "Rendi Adinata",
+    "Rendi ",
     "Ilman"
   ],
-  "description": "yah Baiklah",
+  "description": "Agresif, greedy dalam hal damage dan berusaha menembak sebanyak mungkin.",
   "homepage": "",
   "countryCodes": [
     "IDN"

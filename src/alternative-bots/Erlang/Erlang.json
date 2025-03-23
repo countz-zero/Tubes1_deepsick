@@ -1,11 +1,11 @@
 {
-  "name": "Adam",
+  "name": "Erlang",
   "version": "1.0",
   "authors": [
-    "Rendi Adinata",
+    "Rendi",
     "Ilman"
   ],
-  "description": "yah gitu deh",
+  "description": "Defensif, mengorboit sirkular pada lawan, greed dalam hal energy",
   "homepage": "",
   "countryCodes": [
     "IDN"
