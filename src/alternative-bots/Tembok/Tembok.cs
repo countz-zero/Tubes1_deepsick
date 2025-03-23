@@ -68,12 +68,12 @@ public class Tembok : Bot
         }
     }
 
-    // We saw another bot -> fire!
+    //Apabila kita melihat bot, tembak
     public override void OnScannedBot(ScannedBotEvent evt)
     {
         Fire(2);
+        //Memastikan kita bisa menembak saat memutar di pojok
         if (peek) {
-            SetStop();
             SetStop();
             Rescan();
         }
@@ -84,10 +84,10 @@ public class Tembok : Bot
 
     public override void OnHitBot(HitBotEvent e) {
         double bearing = BearingTo(e.X, e.Y);
-        //Jika di depan kita, mundur sedikit.
+        //Jika ditabrak di depan kita, mundur sedikit.
         if (bearing > -90 && bearing < 90) {
 			Back(100);
-		} // Jika di belakang, maju sedikit
+		} // Jika ditabrak di belakang, maju sedikit
 		else {
 			Forward(100);
 		}
