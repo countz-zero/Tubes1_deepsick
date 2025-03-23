@@ -49,8 +49,6 @@ public class Wintermute : Bot
         }
     }
 
-
-    // We saw another bot -> fire!
     public override void OnScannedBot(ScannedBotEvent evt)
     {
         bool killed = false;
@@ -62,7 +60,7 @@ public class Wintermute : Bot
             rotAtm = CalcDeltaAngle(trackedDir, Direction);
             TurnLeft(rotAtm);
             Forward(100);
-            Fire(2);
+            Fire(1.5);
         }
 
         else {
@@ -76,25 +74,24 @@ public class Wintermute : Bot
                 Fire(3);
                 timesFire--;
             }
-
-            killed = true;
         }
-
-        if(killed) {
-            Fire(3);
-            TurnLeft(180);
-        }
-
     }
 
     //We were hit by a bullet -> turn perpendicular to the bullet
     public override void OnHitByBullet(HitByBulletEvent evt)
     {
-        ;
+        SetTurnLeft(90);
+        Back(100);
     }
 
     public void onHitBot(HitBotEvent e) {
-		Back(50);
+		double collisionDir;
+        double turnAmt;
+        collisionDir = DirectionTo(e.X, e.Y);
+        turnAmt = CalcDeltaAngle(collisionDir, Direction);
+
+        TurnLeft(turnAmt);
+        Fire(2);
 	}
 
     public void OnHitWall(HitWallEvent evt) {
