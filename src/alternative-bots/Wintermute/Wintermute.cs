@@ -6,6 +6,7 @@ using System;
 public class Wintermute : Bot
 {
     int count = 0;
+    double gunTurnAmt;
     // The main method starts our bot
     static void Main(string[] args)
     {
@@ -34,18 +35,16 @@ public class Wintermute : Bot
         // Repeat while the bot is running
         while (IsRunning)
         {
-            if(Direction != DirectionTo(ArenaWidth/2, ArenaHeight/2)) {
-                rotAtm = CalcDeltaAngle(directionToCenter, Direction);
-                TurnLeft(rotAtm);
-            }
+            
 
             if (count > 5) {
-                TurnLeft(180);
+                TurnLeft(10);
                 count = 0;
             }
-            TurnRadarLeft(90);
-            TurnRadarRight(180);
-            TurnRadarLeft(90);
+
+            TurnRadarLeft(20);
+            TurnRadarRight(40);
+            TurnRadarLeft(20);
             count++;
         }
     }
@@ -56,36 +55,33 @@ public class Wintermute : Bot
     {
         double trackedDir;
         double rotAtm;
-        if(DistanceTo(evt.X, evt.Y) > 300) {
+        if(DistanceTo(evt.X, evt.Y) > 100) {
             trackedDir = DirectionTo(evt.X, evt.Y);
 
-            rotAtm = CalcDeltaAngle(Direction, trackedDir);
+            rotAtm = CalcDeltaAngle(trackedDir, Direction);
             TurnLeft(rotAtm);
             Forward(100);
             Fire(1);
+        }
+
+        else {
+            trackedDir = DirectionTo(evt.X, evt.Y);
+
+            rotAtm = CalcDeltaAngle(trackedDir, Direction);
+            TurnLeft(rotAtm);
+            while(evt.Energy > 0) {
+                Fire(3);
+            }
         }
     }
 
     //We were hit by a bullet -> turn perpendicular to the bullet
     public override void OnHitByBullet(HitByBulletEvent evt)
     {
-        // Calculate the bearing to the direction of the bullet
-        var bearing = CalcBearing(evt.Bullet.Direction);
-
-        // Turn 90 degrees to the bullet direction based on the bearing
-        TurnLeft(90 - bearing);
+        ;
     }
 
     public void onHitBot(HitBotEvent e) {
-		// Only print if he's not already our target.
-		// Set the target
-		int trackName = e.VictimId;
-		// Back up a bit.
-		// Note:  We won't get scan events while we're doing this!
-		// An AdvancedRobot might use setBack(); execute();
-		gunTurnAmt = NormalizeRelativeAngle(BearingTo(e.X, e.Y) + Direction - RadarDirection);
-		TurnGunRight(gunTurnAmt);
-		Fire(3);
 		Back(50);
 	}
 
