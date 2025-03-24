@@ -6,7 +6,7 @@
 
 Dzubyan Ilman Ramadhan (10122010)
 
-Rendi ()
+Rendi (10123083)
 
 # Requirement
 
@@ -18,9 +18,9 @@ Aplikasi Robocode Tank Royale
 # Rincian Algoritma
 
 * Erlang
-
+Bot ini greedy terhadap energi. Berusaha untuk menghindari serangan lawan di tengah-tengah arena dan menggunakan energi seefisien mungkin, namun belum cukup baik dalam menghindari serangan.
 * Wukong
-
+Bot ini greedy terhadap damage. Berusaha untuk memperoleh skor dengan damage sebesar mungkin terhadap bot lain, namun belum cukup akurat.
 * Tembok
 
   Bot ini greedy terhadap poin dari survival. Bot ini akan bergerak memutar di sekitar pinggir arena pertempuran dan menghindari bot lainnya apabila tertabrak dengan cara kabur ke arah berlawanan dari bot lainnya.
