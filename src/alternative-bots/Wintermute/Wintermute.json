@@ -2,7 +2,7 @@
     "name": "Wintermute",
     "version": "1.1",
     "authors": [ "Ilman", "Rendi"],
-    "description": "",
+    "description": "Memindai sekitarnya, lalu mendekati target dan menembak",
     "homepage": "hawk.tuah",
     "countryCodes": [ "id" ],
     "platform": ".Net",
