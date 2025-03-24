@@ -31,7 +31,7 @@ Aplikasi Robocode Tank Royale
 
 # Cara menggunakan 
 1. Download file ZIP dari github
-2. Download Robocode Tank Royale di [laman github ini][https://github.com/robocode-dev/tank-royale]
+2. Download Robocode Tank Royale di [laman github ini](https://github.com/robocode-dev/tank-royale)
 3. Setelah ter-download, buka aplikasi Robocode Tank Royale, dan buka menu Config, lalu Bot Root Directory
 4. Pilih tombol Add lalu tambahkan **folder yang berisi folder-folder bot** (alternative-bots & main-bots)
 5. Buka menu Battle, lalu Start Battle
