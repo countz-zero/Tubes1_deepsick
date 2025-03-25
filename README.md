@@ -11,8 +11,11 @@ Rendi (10123083)
 # Requirement
 
 Operating System : Windows, macOS, atau Linux
+
 .NET versi terbaru
+
 Java versi terbaru
+
 Aplikasi Robocode Tank Royale
 
 # Rincian Algoritma
