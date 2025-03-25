@@ -21,8 +21,10 @@ Aplikasi Robocode Tank Royale
 # Rincian Algoritma
 
 * Erlang
+  
 Bot ini greedy terhadap energi. Berusaha untuk menghindari serangan lawan di tengah-tengah arena dan menggunakan energi seefisien mungkin, namun belum cukup baik dalam menghindari serangan.
 * Wukong
+  
 Bot ini greedy terhadap damage. Berusaha untuk memperoleh skor dengan damage sebesar mungkin terhadap bot lain, namun belum cukup akurat.
 * Tembok
 
