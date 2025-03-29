@@ -22,10 +22,10 @@ Aplikasi Robocode Tank Royale
 
 * Erlang
   
-Bot ini greedy terhadap energi. Berusaha untuk menghindari serangan lawan di tengah-tengah arena dan menggunakan energi seefisien mungkin, namun belum cukup baik dalam menghindari serangan.
+  Bot ini greedy terhadap energi. Bot ini akan menghindari serangan lawan dalam arena dan menggunakan energi seefisien mungkin, namun belum cukup baik dalam menghindari serangan.
 * Wukong
-  
-Bot ini greedy terhadap damage. Berusaha untuk memperoleh skor dengan damage sebesar mungkin terhadap bot lain, namun belum cukup akurat.
+    
+  Bot ini greedy terhadap damage. Bot ini memprioritaskan memperoleh skor dengan damage sebesar mungkin terhadap bot lain, namun tembakan belum cukup akurat.
 * Tembok
 
   Bot ini greedy terhadap poin dari survival. Bot ini akan bergerak memutar di sekitar pinggir arena pertempuran dan menghindari bot lainnya apabila tertabrak dengan cara kabur ke arah berlawanan dari bot lainnya.
